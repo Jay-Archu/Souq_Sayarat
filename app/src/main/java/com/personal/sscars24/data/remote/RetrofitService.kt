@@ -1,0 +1,66 @@
+package com.personal.sscars24.data.remote
+
+import com.personal.sscars24.BuildConfig
+import kotlinx.coroutines.runBlocking
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+
+object RetrofitService {
+
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
+    }
+
+    private fun createHeaderInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+            val url = request.url.toString()
+
+            val newRequest = if (url.contains("/flights/userAuthorization")) {
+                request.newBuilder()
+                    .addHeader("Content-Type", "application/json")
+                    .build()
+            } else {
+                val token = runBlocking { //tokenManager.getToken().firstOrNull()
+                     }
+                request.newBuilder()
+                    .addHeader("Content-Type", "application/json")
+                    .apply {
+                        token?.let { addHeader("Authorization", "Bearer $it") }
+                    }
+                    .build()
+            }
+
+            chain.proceed(newRequest)
+        }
+    }
+
+    private fun createOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            //addInterceptor()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build()
+    }
+
+    fun createApiService(): ApiService {
+        val okHttpClient = createOkHttpClient()
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_API_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+    }
+}

@@ -1,0 +1,14 @@
+package com.personal.sscars24.presentation.ui.common
+
+import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
+@Composable
+class StatusbarColor {
+    val systemUiController = rememberSystemUiController()
+    val tealColor = Teal
+
+    LaunchedEffect(Unit) {
+        systemUiController.setStatusBarColor(color = tealColor)
+    }
+}

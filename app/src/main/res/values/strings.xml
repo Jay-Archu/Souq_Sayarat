@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">SS Cars24</string>
+    <string name="button_started">"Get Started"</string>
+    <string name="sayarat">SAYARAT</string>
+    <string name="welcome_text">Welcome to Souq </string>
+    <string name="welcome_text1">Sayarat </string>
+    <string name="welcome_car">Find Your Dream </string>
+    <string name="welcome_car1">Car </string>
+    <string name="welcome_market">Your Ultimate Car  </string>
+    <string name="welcome_market1">Marketplace </string>
+    <string name="discover_text">Discover a seamless way to buy and sell cars in your area.</string>
+    <string name="browser_text">Browse our extensive inventory of cars. Filter by make, model, and price to find the perfect match!</string>
+    <string name="buy_text">Ready to buy or sell a car? Souq Sayarat makes it effortless!</string>
+    <string name="welcome">Welcome to</string>
+    <string name="verify">Verify Your</string>
+    <string name="new_here">New here?</string>
+    <string name="sayarat_text">Souq Sayarat</string>
+    <string name="phone">Phone Number</string>
+    <string name="create_new_account">Create Your Account</string>
+    <string name="phone_number"> phone number to login or register</string>
+    <string name="otp_number">Enter the verification code sent to your phone number</string>
+    <string name="phone_number1"> phone number</string>
+</resources>
